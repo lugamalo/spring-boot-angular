@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
+
 export class AppComponent {
-  title = 'angular8-springboot-client';
+  title = 'Spring Boot - Aplicacion Angular Cliente';
 }

@@ -1,0 +1,105 @@
+<div class="card my-5">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #formularioCliente="ngForm" novalidate="" >
+      <table>
+      	<tr>
+    		<td colspan="2" align="center"><h2>Pantalla de Guardar Clientes</h2></td>
+    		<hr/>
+  		</tr>
+      	<tr>
+      		<th><label for="name">Tipo de Identificacion</label></th>
+      		<td>
+      			<select name="combo">
+				    <!-- Opciones de la lista -->
+				    <option value="1"selected>Cedula de Ciudadania</option>
+				    <option value="2" >Cedula de Extranjeria</option> <!-- Opción por defecto -->
+				    <option value="3">Pasaporte</option>
+				    <option value="4">Registro Civil</option>
+				    <option value="5">Tarjeta de Identidad</option>
+				  </select>
+
+      			<input type="text" [(ngModel)]="cliente.tipoIdentificacion" 
+          			class="form-control"
+          			id="tipoIdentificacion"
+          			name="tipoIdentificacion"
+          			placeholder="ingrese el Tipo de Identificacion"
+          			required #tipoIdentificacion="ngModel">
+      		</td>
+      	</tr>
+
+      	<tr>
+      		<th><label>Numero de Identificacion</label></th>
+      		<td>
+	      		<input type="number" pattern="^[0-9]" [(ngModel)]="cliente.numeroIdentificacion" 
+	          		class="form-control"
+	          		id="numeroIdentificacion"
+	          		name="numeroIdentificacion"
+	          		placeholder="Ingrese su numero de Identificacion"
+	          		maxlength="10"
+	          		minlength="10"
+	          		required #numeroIdentificacion="ngModel"
+	          		>
+	    		  <div class="text-danger"
+	            	*ngIf="(numeroIdentificacion.touched || formularioCliente.submitted) && numeroIdentificacion.errors?.required">
+	            	<div [hidden]="!numeroIdentificacion.errors.required">Numero Identificacion es requerido</div>
+	        		<div [hidden]="!numeroIdentificacion.errors.minlength">Numero de identificacion debe ser minimo de 10 digitos</div>
+	        		<div [hidden]="!numeroIdentificacion.errors.pattern">No debe digitar letras solo numeros</div>
+	              </div> 
+	        </td>     
+     	</tr>
+
+      	<tr>
+      		<th><label for="name">Celular</label></th>
+      		<td>
+		        <input type="number" [(ngModel)]="cliente.celular" 
+		          class="form-control"
+		          id="celular"
+		          name="celular"
+		          placeholder="Ingrese su numero de celular"
+		          required minlength="10" #celular="ngModel"
+		          [ngStyle]="{'outline-color': celular.dirty && celular.valid ? 'green' : undefined }"
+		          >
+		           <!--<span class="text-danger"
+		             *ngIf="(celular.touched || formularioCliente.submitted) && celular.errors?.required">
+		            	El numero de celular es requerido
+		            </span>
+		        -->
+			        <div class="alert alert-danger" *ngIf="(formularioCliente.submitted || celular.touched && celular.errors)">
+	        			<div [hidden]="!celular.errors.required">El numero de celular es requerido</div>
+	        			<div [hidden]="!celular.errors.minlength">Celular debe ser minimo de 10 digitos</div>
+    				</div>
+		    </td>        
+  
+        </tr>
+
+      	<tr>
+      		<th><label>Email</label></th>
+      		<td>
+	      		<input type="text" class="form-control" [(ngModel)]="cliente.correo" name="email"
+	            	#email="ngModel" required email>
+	        	<span class="text-danger"
+	            	*ngIf="(email.touched || formularioCliente.submitted) && email.errors?.required">
+	            	Correo Electronico es requerido
+	        	</span>
+	        	<span class="text-danger" *ngIf="email.touched && email.errors?.email">
+	           		Ingresa un direccion de correo valida
+	        	</span>
+	        </td>	
+      	</tr>
+
+      	<tr>
+      		<td>
+      			&nbsp;
+        	</td>
+        </tr>
+      	<tr>
+      		<td colspan="2" align="center">
+      			<button type="submit"  
+        		class="btn btn-info">Guardar</button>
+        	</td>
+        </tr>		
+      </table>
+    
+    </form>
+  </div>
+</div>
